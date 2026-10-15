@@ -1,0 +1,25 @@
+name = "tuya-zoho-attendance"
+main = "src/index.js"
+compatibility_date = "2026-09-13"
+
+# Every 2 minutes, 05:00-16:58 UTC, every day. That covers 08:00-18:00 Egypt
+# time in both summer (UTC+3) and winter (UTC+2); src/index.js drops the runs
+# outside 08:00-18:00 local before they call Tuya. 301 runs a day x 2 locks
+# = ~18,700 Tuya calls a month, inside the Trial Edition's 26,000.
+[triggers]
+crons = ["*/2 5-16 * * *"]
+
+# Holds the cursor, the ids of unlocks already posted, and the cached tokens.
+# Create it with:  npx wrangler kv namespace create STATE
+# then paste the printed id below.
+[[kv_namespaces]]
+binding = "STATE"
+id = "60e13c16046e48d2bfbe738a63a27590"
+
+# Secrets are NOT set here. Set them with `npx wrangler secret put <NAME>`:
+#   TUYA_ACCESS_ID
+#   TUYA_ACCESS_SECRET
+#   ZOHO_CLIENT_ID
+#   ZOHO_CLIENT_SECRET
+#   ZOHO_REFRESH_TOKEN
+#   ADMIN_KEY            (any long random string; guards /run and /status)

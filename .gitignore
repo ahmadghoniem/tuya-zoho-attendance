@@ -1,0 +1,11 @@
+# Real employee data, raw exports and lock metadata: kept on disk only
+private/
+cf-worker/src/mapping.js
+CLAUDE.local.md
+.dev.vars
+.env
+
+__pycache__/
+.wrangler/
+node_modules/
+*.rar
